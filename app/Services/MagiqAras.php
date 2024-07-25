@@ -21,6 +21,11 @@ class MagiqAras {
         int $l1_c_direction,
         int $sortDirection = SortDirection::DESCENDING
     ) {
+        if (count($this->places) <= 0) {
+            return [];
+        }
+
+
         $level3 = $this->calculateLevel3();
         // dd($level3);
         $level2 = $this->calculateLevel2($level3);

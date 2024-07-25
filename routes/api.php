@@ -4,9 +4,14 @@ use Illuminate\Support\Facades\Route;
 use App\Models\City;
 use App\Models\RecommendationTemplate;
 
-Route::post('/v1/calculate', [
+Route::post('/v1/calculate-manual', [
     \App\Http\Controllers\Api\v1\DSSCalculationController::class,
-    'calculate'
+    'calculateManual'
+]);
+
+Route::post('/v1/calculate-template', [
+    \App\Http\Controllers\Api\v1\DSSCalculationController::class,
+    'calculateTemplate'
 ]);
 
 Route::get('/v1/city', function () {
