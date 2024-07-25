@@ -6,7 +6,7 @@ node {
 
     stage('Build Docker Image') {
         // Define the Docker image name and tag
-        def dockerImage = 'spk-rekowisatabali:latest'
+        def dockerImage = 'dhanuprys/spk-rekowisatabali:latest'
 
         // Build Docker image
         script {
@@ -43,6 +43,6 @@ node {
     // }
 
     stage('Cleanup Image') {
-        sh 'docker rmi spk-rekowisatabali'
+        sh 'docker rmi dhanuprys/spk-rekowisatabali'
     }
 }
