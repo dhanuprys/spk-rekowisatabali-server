@@ -10,7 +10,7 @@ node {
 
         // Build Docker image
         script {
-            docker.withRegistry('https://index.docker.io/v1/', 'docker-dhanu') {
+            docker.withRegistry('https://docker.io', 'docker-dhanu') {
                 def customImage = docker.build(dockerImage, '-f Dockerfile .')
 
                 // Push the Docker image to the registry
