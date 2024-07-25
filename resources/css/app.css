@@ -1,0 +1,79 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+    @apply text-slate-900
+}
+
+.glowing-effect {
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background-color: transparent;
+    box-shadow:
+        0 0 40px 30px #0e82ff,
+        /* inner white */
+        0 0 100px 30px rgb(5, 5, 142),
+        /* middle magenta */
+        0 0 110px 50px rgb(43, 0, 255);
+    /* outer cyan */
+    animation: glowcolorful 20s infinite alternate ease-in-out;
+}
+
+@keyframes glowcolorful {
+    0% {
+        box-shadow:
+            0 0 40px 30px #0e82ff,
+            /* inner blue */
+            0 0 100px 30px rgb(5, 5, 142),
+            /* middle blue */
+            0 0 110px 50px rgb(43, 0, 255);
+        /* outer blue */
+        transform: scale(1);
+    }
+
+    25% {
+        box-shadow:
+            0 0 50px 35px #ff00ff,
+            /* inner magenta */
+            0 0 120px 35px #bf00ff,
+            /* middle magenta */
+            0 0 130px 55px #8000ff;
+        /* outer magenta */
+        transform: scale(1.1);
+    }
+
+    50% {
+        box-shadow:
+            0 0 60px 40px #00ff00,
+            /* inner green */
+            0 0 140px 40px #00bf00,
+            /* middle green */
+            0 0 150px 60px #008000;
+        /* outer green */
+        transform: scale(1.2);
+    }
+
+    75% {
+        box-shadow:
+            0 0 50px 35px #ff0000,
+            /* inner red */
+            0 0 120px 35px #bf0000,
+            /* middle red */
+            0 0 130px 55px #800000;
+        /* outer red */
+        transform: scale(1.1);
+    }
+
+    100% {
+        box-shadow:
+            0 0 40px 30px #0e82ff,
+            /* inner blue */
+            0 0 100px 30px rgb(5, 5, 142),
+            /* middle blue */
+            0 0 110px 50px rgb(43, 0, 255);
+        /* outer blue */
+        transform: scale(1);
+    }
+}

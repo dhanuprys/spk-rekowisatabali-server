@@ -1,0 +1,44 @@
+version: '3.8'
+
+services:
+  webapp:
+    image: dhanuprys/spk-rekowisatabali:latest
+    ports:
+      - '${APP_PORT:-9888}:80'
+    volumes:
+      - './.env:/var/www/html/.env'
+      - './storage:/var/www/html/storage'
+    restart: always
+    networks:
+      - rekowisata-net
+    healthcheck:
+      test: curl --fail http://localhost/admin/login || exit 1
+      interval: 20s
+      timeout: 10s
+      retries: 3
+      start_period: 50s
+    depends_on:
+      - postgres
+
+  postgres:
+    image: 'postgres:16'
+    restart: always
+#    ports:
+#        - '${FORWARD_DB_PORT:-5432}:5432'
+    environment:
+        POSTGRES_USER: '${DB_USERNAME}'
+        POSTGRES_PASSWORD: '${DB_PASSWORD}'
+        POSTGRES_DB: '${DB_DATABASE}'
+        PGDATA: /var/lib/postgresql/data/pgdata
+        TZ: Asia/Makassar
+    volumes:
+        - 'rekowisata-postgres:/var/lib/postgresql/data/pgdata'
+    networks:
+        - rekowisata-net
+
+networks:
+  rekowisata-net:
+    driver: bridge
+volumes:
+  rekowisata-postgres:
+    driver: local
