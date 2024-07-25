@@ -6,11 +6,11 @@ node {
 
     stage('Build Docker Image') {
         // Define the Docker image name and tag
-        def dockerImage = 'scr.stemsi.cloud/spk-rekowisatabali:latest'
+        def dockerImage = 'spk-rekowisatabali:latest'
 
         // Build Docker image
         script {
-            docker.withRegistry('https://scr.stemsi.cloud', 'docker-dhanu') {
+            docker.withRegistry('https://index.docker.io/v1/', 'docker-dhanu') {
                 def customImage = docker.build(dockerImage, '-f Dockerfile .')
 
                 // Push the Docker image to the registry
@@ -43,6 +43,6 @@ node {
     // }
 
     stage('Cleanup Image') {
-        sh 'docker rmi scr.stemsi.cloud/spk-rekowisatabali'
+        sh 'docker rmi spk-rekowisatabali'
     }
 }
