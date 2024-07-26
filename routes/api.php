@@ -26,7 +26,9 @@ Route::get('/v1/city', function () {
 Route::get('v1/recommendation-template', function () {
     $templates = RecommendationTemplate::select([
         'id',
-        'name'
+        'name',
+        'description',
+        'image_url'
     ])->get();
 
     return response()->json($templates);
