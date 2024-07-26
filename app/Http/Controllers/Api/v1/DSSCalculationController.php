@@ -15,6 +15,7 @@ class DSSCalculationController extends Controller
     public function calculateManual(Request $request)
     {
         $validator = Validator::make($request->all(), [
+            'limit' => 'required|numeric',
             'cities_id' => 'required|array',
             'inp_l3_cg1_a' => 'required|numeric',
             'inp_l3_cg1_b' => 'required|numeric',
@@ -67,7 +68,8 @@ class DSSCalculationController extends Controller
         $magiqAras = new MagiqAras($criteria, $places);
         $result = $magiqAras->getBestPlace(
             intval($validatedData['l1_b_direction']),
-            intval($validatedData['l1_c_direction'])
+            intval($validatedData['l1_c_direction']),
+            intval($validatedData['limit'])
         );
 
         return response()->json($result);
@@ -76,6 +78,7 @@ class DSSCalculationController extends Controller
     public function calculateTemplate(Request $request)
     {
         $validator = Validator::make($request->all(), [
+            'limit' => 'required|numeric',
             'cities_id' => 'required|array',
             'template_id' => 'required|numeric'
         ]);
@@ -119,7 +122,8 @@ class DSSCalculationController extends Controller
         $magiqAras = new MagiqAras($criteria, $places);
         $result = $magiqAras->getBestPlace(
             intval($templateCriteria->l1_b_direction),
-            intval($templateCriteria->l1_c_direction)
+            intval($templateCriteria->l1_c_direction),
+            intval($validatedData['limit'])
         );
 
         return response()->json($result);

@@ -19,6 +19,7 @@ class MagiqAras {
     public function getBestPlace(
         int $l1_b_direction,
         int $l1_c_direction,
+        int $limit = 5,
         int $sortDirection = SortDirection::DESCENDING
     ) {
         if (count($this->places) <= 0) {
@@ -34,7 +35,7 @@ class MagiqAras {
         // dd($level1);
         $result = $this->sortAndMapResult($level1, $sortDirection);
 
-        return $result;
+        return array_slice($result, 0, $limit);
     }
 
     private function sortAndMapResult(
