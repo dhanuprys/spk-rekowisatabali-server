@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('recommendation_templates', function (Blueprint $table) {
-            $table->string('image_url');
+            $table->string('image_url')->nullable();
         });
     }
 
