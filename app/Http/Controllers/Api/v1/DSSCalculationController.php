@@ -76,7 +76,7 @@ class DSSCalculationController extends Controller
     public function calculateTemplate(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'city_id' => 'required|numeric',
+            'cities_id' => 'required|array',
             'template_id' => 'required|numeric'
         ]);
 
