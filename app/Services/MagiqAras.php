@@ -101,10 +101,17 @@ class MagiqAras {
         $alternative0['l1_c'] = $normalize($alternative0['l1_c'], $l1_c_direction);
 
         // Normalize data
-        foreach ($graphs as $graph) {
-            $normalizationSum['l1_a'] += $normalize($graph['metric']['l1_a'], CriteriaDirection::MAX);
-            $normalizationSum['l1_b'] += $normalize($graph['place']['l1_b'], $l1_b_direction);
-            $normalizationSum['l1_c'] += $normalize($graph['place']['l1_c'], $l1_c_direction);
+        foreach ($modifiedRows as &$graph) {
+            $graph['place']['l1_b'] = $normalize($graph['place']['l1_b'], $l1_b_direction);
+            $graph['place']['l1_c'] = $normalize($graph['place']['l1_c'], $l1_c_direction);
+        }
+
+        // dd($normalizationSum);
+
+        foreach ($modifiedRows as $graph) {
+            $normalizationSum['l1_a'] += $graph['metric']['l1_a'];
+            $normalizationSum['l1_b'] += $graph['place']['l1_b'];
+            $normalizationSum['l1_c'] += $graph['place']['l1_c'];
         }
 
         // Final normalization
@@ -133,7 +140,12 @@ class MagiqAras {
         $alt = $alternative0['l1_a'] + $alternative0['l1_b'] + $alternative0['l1_c'];
 
         foreach ($modifiedRows as $index => $current) {
-            $score = ($current['metric']['l1_a'] + $current['place']['l1_b'] + $current['place']['l1_c']) / $alt;
+            $score = (
+                $current['metric']['l1_a']
+                + $current['place']['l1_b']
+                + $current['place']['l1_c']
+            ) / $alt;
+
             $output[] = [
                 'place' => $this->places[$index],
                 'score' => $score
@@ -301,6 +313,7 @@ class MagiqAras {
             $modifiedRows[$index]['l3_cg3_b'] *= $this->userCriteria->inp_l3_cg3_b;
             $modifiedRows[$index]['l3_cg3_c'] *= $this->userCriteria->inp_l3_cg3_c;
         }
+
 
         // Determine the best data
         $alt1 = $alternative0['l3_cg1_a'] + $alternative0['l3_cg1_b'];
