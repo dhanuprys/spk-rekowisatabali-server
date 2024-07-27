@@ -52,6 +52,7 @@ class MagiqAras {
             return [
                 'id' => $record['place']['id'],
                 'name' => $record['place']['name'],
+                'city_name' => $record['place']['city_name'],
                 'rank' => $index + 1,
                 'score' => $record['score']
             ];

@@ -40,14 +40,8 @@ class DSSCalculationController extends Controller
         }
 
         $validatedData = $validator->validated();
-        $places = Place::query();
-
-        foreach ($validatedData['cities_id'] as $cityId)
-        {
-            $places->orWhere('city_id', $cityId);
-        }
-
-        $places = $places->get()->toArray();
+        $places = Place::getMetrics($validatedData['cities_id'])
+                    ->toArray();
 
         $criteria = new UserCriteria();
         $criteria->inp_l3_cg1_a = floatval($validatedData['inp_l3_cg1_a']);
@@ -94,14 +88,8 @@ class DSSCalculationController extends Controller
             return response()->json(['error' => 'Recommendation template not found'], 404);
         }
 
-        $places = Place::query();
-
-        foreach ($validatedData['cities_id'] as $cityId)
-        {
-            $places->orWhere('city_id', $cityId);
-        }
-
-        $places = $places->get()->toArray();
+        $places = Place::getMetrics($validatedData['cities_id'])
+                    ->toArray();
 
         $criteria = new UserCriteria();
         $criteria->inp_l3_cg1_a = floatval($templateCriteria->l3_cg1_a);
