@@ -4,9 +4,9 @@ namespace App\Http\Controllers\Api\v1;
 
 use App\Http\Controllers\Controller;
 use App\Models\Place;
-use App\Services\MagiqAras;
 use App\Data\UserCriteria;
 use App\Models\RecommendationTemplate;
+use App\Services\LoggedMagiqAras;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -59,7 +59,7 @@ class DSSCalculationController extends Controller
         $criteria->inp_l1_b = floatval($validatedData['inp_l1_b']);
         $criteria->inp_l1_c = floatval($validatedData['inp_l1_c']);
 
-        $magiqAras = new MagiqAras($criteria, $places);
+        $magiqAras = new LoggedMagiqAras($criteria, $places);
         $result = $magiqAras->getBestPlace(
             intval($validatedData['l1_b_direction']),
             intval($validatedData['l1_c_direction']),
@@ -107,7 +107,7 @@ class DSSCalculationController extends Controller
         $criteria->inp_l1_b = floatval($templateCriteria->l1_b);
         $criteria->inp_l1_c = floatval($templateCriteria->l1_c);
 
-        $magiqAras = new MagiqAras($criteria, $places);
+        $magiqAras = new LoggedMagiqAras($criteria, $places);
         $result = $magiqAras->getBestPlace(
             intval($templateCriteria->l1_b_direction),
             intval($templateCriteria->l1_c_direction),

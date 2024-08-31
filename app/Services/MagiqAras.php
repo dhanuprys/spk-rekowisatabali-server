@@ -7,8 +7,8 @@ use App\Data\UserCriteria;
 use App\Data\SortDirection;
 
 class MagiqAras {
-    private $userCriteria;
-    private $places;
+    protected $userCriteria;
+    protected $places;
 
     public function __construct(UserCriteria $userCriteria, array $places)
     {
@@ -38,7 +38,7 @@ class MagiqAras {
         return array_slice($result, 0, $limit);
     }
 
-    private function sortAndMapResult(
+    protected function sortAndMapResult(
         array $result,
         int $direction = SortDirection::DESCENDING
     ): array {
@@ -59,7 +59,7 @@ class MagiqAras {
         }, $result, array_keys($result));
     }
 
-    private function calculateLevel1(
+    protected function calculateLevel1(
         array $graphs,
         int $l1_b_direction,
         int $l1_c_direction
@@ -69,7 +69,13 @@ class MagiqAras {
 
         // Selects the minimum or maximum value based on the direction
         $maxMinSelector = function($input, $reducer, $direction) {
-            return $reducer === null ? $input : ($direction === CriteriaDirection::MIN ? min($input, $reducer) : max($input, $reducer));
+            return $reducer === null
+                ? $input :
+                (
+                    $direction === CriteriaDirection::MIN
+                        ? min($input, $reducer)
+                        : max($input, $reducer)
+                );
         };
 
         // Normalizes the value based on the direction
@@ -156,7 +162,7 @@ class MagiqAras {
         return $output;
     }
 
-    private function calculateLevel2(array $graphs): array
+    protected function calculateLevel2(array $graphs): array
     {
         $output = [];
         $modifiedRows = $graphs;
@@ -225,7 +231,7 @@ class MagiqAras {
         return $output;
     }
 
-    private function calculateLevel3(): array
+    protected function calculateLevel3(): array
     {
         $output = [];
         $modifiedRows = $this->places;
